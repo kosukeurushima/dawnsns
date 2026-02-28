@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/follow/create', [FollowController::class, 'create'])->name('follow.create');
+    Route::delete('/follow/delete', [FollowController::class, 'delete'])->name('follow.delete');
 });
