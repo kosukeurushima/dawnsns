@@ -38,6 +38,15 @@
         </div>
 
         <p>{{ $post->post }}</p>
+
+        @if ($post->user_id === auth()->id())
+          <form method="POST" action="{{ route('posts.destroy', $post) }}" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+          </form>
+        @endif
+
     </div>
 @endforeach
 </body>

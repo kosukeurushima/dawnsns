@@ -28,3 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
     Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');

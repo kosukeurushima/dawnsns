@@ -40,10 +40,10 @@ class FollowController extends Controller
     {
         $validated = $request->validate([
             'targetUserId' => ['required', 'integer'],
-        ]); :contentReference[oaicite:6]{index=6}
+        ]);
 
-        $loginUserId = Auth::id();
-        $targetUserId = (int) $validated['targetUserId'];
+    $loginUserId = Auth::id();
+    $targetUserId = (int) $validated['targetUserId'];
 
         DB::table('follows')
             ->where('user_id', $targetUserId)
