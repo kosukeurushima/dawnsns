@@ -40,6 +40,10 @@
         <p>{{ $post->post }}</p>
 
         @if ($post->user_id === auth()->id())
+          <a href="{{ route('posts.edit', $post) }}">編集</a>
+          @endif
+
+          @if ($post->user_id === auth()->id())
           <form method="POST" action="{{ route('posts.destroy', $post) }}" style="display:inline;">
             @csrf
             @method('DELETE')

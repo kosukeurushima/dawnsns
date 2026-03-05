@@ -46,4 +46,28 @@ class PostsController extends Controller
 
         return redirect()->route('posts.index');
     }
+
+    public function edit(Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'post' => ['required', 'string', 'max:400'],
+        ]);
+
+        $post->update($validated);
+
+        return redirect()->route('posts.index');
+    }
 }

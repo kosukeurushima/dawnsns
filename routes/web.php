@@ -34,3 +34,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
+
+Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
