@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FollowListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,5 @@ Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts
 
 Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
+
+Route::get('/follow-list', [FollowListController::class, 'index'])->name('follow.list');
