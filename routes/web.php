@@ -5,6 +5,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FollowListController;
+use App\Http\Controllers\FollowerListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,5 @@ Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.
 Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
 
 Route::get('/follow-list', [FollowListController::class, 'index'])->name('follow.list');
+
+Route::get('/follower-list', [FollowerListController::class, 'index'])->name('follower.list');
