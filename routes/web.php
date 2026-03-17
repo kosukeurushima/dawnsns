@@ -6,6 +6,8 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FollowListController;
 use App\Http\Controllers\FollowerListController;
+use App\Http\Controllers\ProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::middleware('auth')->group(function () {
     Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
@@ -30,17 +36,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
     Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
+
+    Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
+
+    Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
+
+    Route::get('/follow-list', [FollowListController::class, 'index'])->name('follow.list');
+
+    Route::get('/follower-list', [FollowerListController::class, 'index'])->name('follower.list');
+
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
-
-Route::get('/posts/{post}/edit', [PostsController::class, 'edit'])->name('posts.edit');
-Route::put('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
-
-Route::get('/follow-list', [FollowListController::class, 'index'])->name('follow.list');
-
-Route::get('/follower-list', [FollowerListController::class, 'index'])->name('follower.list');
