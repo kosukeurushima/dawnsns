@@ -30,13 +30,23 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name'=>'required|max:255',
-            'bio'=>'nullable|max:255'
+            'bio'=>'nullable|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,bmp,gif,svg|max:20480',
         ]);
 
         $user = Auth::user();
 
         $user->name = $request->name;
         $user->bio = $request->bio;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('images'), $filename);
+
+            $user->image = $filename;
+        }
 
         $user->save();
 

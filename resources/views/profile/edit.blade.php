@@ -14,6 +14,11 @@
     @method('PUT')
 
 <div>
+    <label>アイコン画像</label>
+    <input type="file" name="image">
+</div>
+
+<div>
 
 <label>名前</label>
 
