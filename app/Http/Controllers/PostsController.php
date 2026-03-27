@@ -15,14 +15,21 @@ class PostsController extends Controller
             ->latest()
             ->get();
 
-        return view('posts.index', compact('posts'));
+        $followCount = \DB::table('follows')
+            ->where('follower_id', auth()->id())
+            ->count();
+
+        $followerCount = \DB::table('follows')
+            ->where('user_id', auth()->id())
+            ->count();
+
+        return view('posts.index', compact('posts', 'followCount', 'followerCount'));
     }
 
     public function store(Request $request)
     {
         //abort(403, '動作確認中のため投稿は無効です（認証導入後に有効化します）');
 
-    // ここより下はあとで戻す
         $validated = $request->validate([
             'post' => ['required', 'string', 'max:400'],
         ]);
@@ -53,7 +60,15 @@ class PostsController extends Controller
             abort(403);
         }
 
-        return view('posts.edit', compact('post'));
+        $followCount = \DB::table('follows')
+            ->where('follower_id', auth()->id())
+            ->count();
+
+        $followerCount = \DB::table('follows')
+            ->where('user_id', auth()->id())
+            ->count();
+
+        return view('posts.edit', compact('post', 'followCount', 'followerCount'));
     }
 
     public function update(Request $request, Post $post)
